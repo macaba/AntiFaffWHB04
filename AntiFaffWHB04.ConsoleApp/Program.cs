@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AntiFaffWHB04.ConsoleApp
 {
     class Program
     {
+        //This console app will send keyboard presses for use with Grbl Panel
         private static decimal x = 0;
 
         static void Main(string[] args)
@@ -59,6 +61,50 @@ namespace AntiFaffWHB04.ConsoleApp
                 SpindleSpeedOverride = 100,
                 Feedrate = UInt16.MaxValue
             });
+            if (data.Wheel != 0)
+                switch (data.WheelMode)
+                {
+                    case WheelMode.X:
+                        for (int i = 0; i < Math.Abs(data.Wheel); i++)
+                        {
+                            if (data.Wheel > 0)
+                                SendKeys.SendWait("{LEFT}");
+                            else
+                                SendKeys.SendWait("{RIGHT}");
+                        }
+
+                        break;
+                    case WheelMode.Y:
+                        for (int i = 0; i < Math.Abs(data.Wheel); i++)
+                        {
+                            if (data.Wheel > 0)
+                                SendKeys.SendWait("{UP}");
+                            else
+                                SendKeys.SendWait("{DOWN}");
+                        }
+                        break;
+                    case WheelMode.Z:
+                        for (int i = 0; i < Math.Abs(data.Wheel); i++)
+                        {
+                            if (data.Wheel > 0)
+                                SendKeys.SendWait("{PGUP}");
+                            else
+                                SendKeys.SendWait("{PGDN}");
+                        }
+                        break;
+                }
+            switch (data.Button1)
+            {
+                case Button.StartPause:
+                    SendKeys.SendWait(" ");
+                    break;
+                case Button.Step:
+                    SendKeys.SendWait("+");
+                    break;
+                case Button.MPG:
+                    SendKeys.SendWait("-");
+                    break;
+            }
         }
     }
 }
