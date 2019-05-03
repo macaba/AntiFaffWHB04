@@ -68,9 +68,9 @@ namespace AntiFaffWHB04.ConsoleApp
                         for (int i = 0; i < Math.Abs(data.Wheel); i++)
                         {
                             if (data.Wheel > 0)
-                                SendKeys.SendWait("{LEFT}");
-                            else
                                 SendKeys.SendWait("{RIGHT}");
+                            else
+                                SendKeys.SendWait("{LEFT}");
                         }
 
                         break;
@@ -99,10 +99,10 @@ namespace AntiFaffWHB04.ConsoleApp
                     SendKeys.SendWait(" ");
                     break;
                 case Button.Step:
-                    SendKeys.SendWait("+");
+                    SendKeys.SendWait("{ADD}");
                     break;
                 case Button.MPG:
-                    SendKeys.SendWait("-");
+                    SendKeys.SendWait("{SUBTRACT}");
                     break;
             }
         }
